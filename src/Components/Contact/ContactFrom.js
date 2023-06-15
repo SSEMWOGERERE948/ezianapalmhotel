@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import "./Contact.css"
 import {db} from "../firebase"
+import {app} from "../firebase"
 
 const ContactFrom = () => {
   const [fname, setFname] = useState("")
@@ -13,19 +14,29 @@ const ContactFrom = () => {
 
   const [allValue, setAllValue] = useState([])
   const formSubmit = (e) => {
-    e.preventDefault()
-
-    const newValue = { fname, lname, phone, email, subject, company, message }
-    setAllValue([...allValue, newValue])
-
-    setFname("")
-    setLname("")
-    setPhone("")
-    setEmail("")
-    setSubject("")
-    setCompany("")
-    setMessage("")
-  }
+    e.preventDefault();
+  
+    const newValue = { fname, lname, phone, email, subject, company, message };
+    setAllValue([...allValue, newValue]);
+  
+    // Store the form data in the Firestore database
+    db.collection("contacts")
+      .add(newValue)
+      .then(() => {
+        console.log("Form data added to Firestore");
+      })
+      .catch((error) => {
+        console.error("Error adding form data to Firestore: ", error);
+      });
+  
+    setFname("");
+    setLname("");
+    setPhone("");
+    setEmail("");
+    setSubject("");
+    setCompany("");
+    setMessage("");
+  };
   return (
     <>
       <section className='contact mtop'>
@@ -61,11 +72,15 @@ const ContactFrom = () => {
                   <input type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div className='input'>
-                  <span>Subject</span>
+                  <span>Adults</span>
                   <input type='text' name='subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
                 </div>
                 <div className='input'>
-                  <span>Your Company</span>
+                  <span>Child</span>
+                  <input type='text' name='subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
+                </div>
+                <div className='input'>
+                  <span>Kind Of Service</span>
                   <input type='text' name='company' value={company} onChange={(e) => setCompany(e.target.value)} />
                 </div>
               </div>

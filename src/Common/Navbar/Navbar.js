@@ -46,6 +46,7 @@ const Navbar = () => {
                 Contact Us
               </Link>
             </li>
+        
           </ul>
 
           <div className='login-area flex'>
