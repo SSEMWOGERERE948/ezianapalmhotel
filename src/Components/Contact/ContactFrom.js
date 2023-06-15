@@ -1,53 +1,31 @@
-import React, { useState } from "react";
-import "./Contact.css";
-// import firebase from 'firebase/app';
-// import 'firebase/firestore';
+import React, { useState } from "react"
+import "./Contact.css"
+import {db} from "../firebase"
 
-const ContactForm = () => {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [company, setCompany] = useState("");
-  const [message, setMessage] = useState("");
+const ContactFrom = () => {
+  const [fname, setFname] = useState("")
+  const [lname, setLname] = useState("")
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
+  const [subject, setSubject] = useState("")
+  const [company, setCompany] = useState("")
+  const [message, setMessage] = useState("")
 
-  const [allValue, setAllValue] = useState([]);
-
+  const [allValue, setAllValue] = useState([])
   const formSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const newValue = { fname, lname, phone, email, subject, company, message };
-    setAllValue([...allValue, newValue]);
+    const newValue = { fname, lname, phone, email, subject, company, message }
+    setAllValue([...allValue, newValue])
 
-    setFname("");
-    setLname("");
-    setPhone("");
-    setEmail("");
-    setSubject("");
-    setCompany("");
-    setMessage("");
-
-    // const contactsRef = firebase.firestore().collection('contacts');
-
-    contactsRef
-      .add({
-        fname,
-        lname,
-        phone,
-        email,
-        subject,
-        company,
-        message,
-      })
-      .then(() => {
-        console.log('Form submitted successfully!');
-      })
-      .catch((error) => {
-        console.error('Error submitting form:', error);
-      });
-  };
-
+    setFname("")
+    setLname("")
+    setPhone("")
+    setEmail("")
+    setSubject("")
+    setCompany("")
+    setMessage("")
+  }
   return (
     <>
       <section className='contact mtop'>
@@ -97,20 +75,19 @@ const ContactForm = () => {
                 </span>
                 <textarea cols='30' rows='10' name='message' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
               </div>
-              <button className='primary-btn' type='submit'>Submit Now</button>
+              <button className='primary-btn'>Submit Now</button>
             </form>
           </div>
 
           <div className='side-content'>
             <h3>Visit our location</h3>
-            <p>Eziana Palm Hotel is located in the scenic North Western region of Uganda, specifically in Kiryandongo District, Bweyale. Our address is EM Road, P.O. Box 166. Nestled amidst the captivating natural beauty of this area, our hotel offers a serene and picturesque setting for a truly memorable stay.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit amet consectetur.</p>
             <br />
 
             <h3>Message us</h3>
-            <span>ezianapalmhotel@gmail.com</span>
+            <span>info@exampal.com</span>
             <br />
-            <span>+256 200 903 920</span><br />
-            <span>+256 757 251 514</span>
+            <span>+01 123 456 789</span>
             <br />
 
             <div className='icon'>
@@ -131,37 +108,39 @@ const ContactForm = () => {
 
       <section className='show-data'>
         {allValue.map((cureentValue) => {
-          const { fname, lname, phone, email, subject, company, message } = cureentValue;
+          const { fname, lname, phone, email, subject, company, message } = cureentValue
           return (
-            <div className='sign-box'>
-              <h1>Send Successfully</h1>
-              <h3>
-                First Name : <p>{fname}</p>
-              </h3>
-              <h3>
-                Last Name : <p>{lname}</p>
-              </h3>
-              <h3>
-                Contact Number : <p>{phone}</p>
-              </h3>
-              <h3>
-                Email : <p>{email}</p>
-              </h3>
-              <h3>
-                Subject : <p>{subject}</p>
-              </h3>
-              <h3>
-                Company Name: <p>{company}</p>
-              </h3>
-              <h3>
-                Your Message : <p>{message}</p>
-              </h3>
-            </div>
-          );
+            <>
+              <div className='sign-box'>
+                <h1>Send Successfully</h1>
+                <h3>
+                  First Name : <p>{fname}</p>
+                </h3>
+                <h3>
+                  Last Name : <p>{lname}</p>
+                </h3>
+                <h3>
+                  Contact Number : <p>{phone}</p>
+                </h3>
+                <h3>
+                  Email : <p>{email}</p>
+                </h3>
+                <h3>
+                  Subject : <p>{subject}</p>
+                </h3>
+                <h3>
+                  Company Name: <p>{company}</p>
+                </h3>
+                <h3>
+                  Your Message : <p>{message}</p>
+                </h3>
+              </div>
+            </>
+          )
         })}
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactFrom
