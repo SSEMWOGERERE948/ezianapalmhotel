@@ -1,5 +1,6 @@
 import React from "react"
 import "./About.css"
+import { Link } from "react-router-dom";
 
 const AboutCard = () => {
   return (
@@ -24,9 +25,11 @@ const AboutCard = () => {
           Whether you're here for business or leisure, our dedicated team is
           committed to making your stay truly memorable.
         </p>
-          <button className='secondary-btn'>
-            Explore More <i className='fas fa-long-arrow-alt-right'></i>
-          </button>
+        <button className='secondary-btn'>
+            <Link to="/Destinations" className="link">
+    Explore more <i className='fas fa-long-arrow-alt-right'></i>
+  </Link>
+            </button>
         </div>
         <div className='row image'>
           <img src='/images/about-img-1.jpg' alt='' />

@@ -3,6 +3,7 @@
   right: 8%;
   top: -70px;
 }
+
 .single-page {
   position: relative;
 }
@@ -11,12 +12,15 @@
   margin: 10px 0 20px 0;
   color: grey;
 }
+
 .main-content .para p {
   margin-right: 10px;
 }
+
 .main-content h1 {
   font-size: 30px;
 }
+
 .main-content img {
   width: 100%;
   height: auto;
@@ -27,10 +31,12 @@ article .box {
   padding: 30px;
   color: white;
 }
+
 article .box h2 {
   font-size: 30px;
   font-weight: 500;
 }
+
 article .box2 {
   margin-top: 40px;
   background: url("../../public/Images/side-bg.jpg");
@@ -41,6 +47,7 @@ article .box2 {
   position: relative;
   padding: 20px;
 }
+
 article .box2::after {
   content: "";
   position: absolute;
@@ -50,10 +57,12 @@ article .box2::after {
   height: 180px;
   width: 100%;
 }
+
 article p {
   font-size: 14px;
   line-height: 25px;
 }
+
 article .box2 p {
   text-align: center;
   position: relative;
@@ -62,8 +71,29 @@ article .box2 p {
   line-height: 25px;
   color: white;
 }
+
 @media screen and (max-width: 768px) {
   .single-page .flex {
     flex-direction: column;
   }
+}
+
+.secondary-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-btn:hover {
+  background-color: greenyellow;
+  color: #fff;
+}
+
+.secondary-btn:active {
+  background-color: green;
+  color: #fff;
 }

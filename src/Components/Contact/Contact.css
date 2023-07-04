@@ -10,6 +10,37 @@ form input {
   font-weight: 400;
   letter-spacing: 1px;
 }
+.main-content {
+  background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    border: 2px solid #31b675;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #F5F8FA; /* Whitish color */
+  border: 2px solid #3CB371; /* Blue border */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'YourFontName', sans-serif;
+}
+
+.notification-popup button {
+  background-color: #3CB371; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'YourFontName', sans-serif;
+}
+
 form span label {
   color: crimson;
 }
@@ -40,4 +71,7 @@ figure {
   .contact .flex {
     flex-direction: column;
   }
+}
+.notification-popup button:hover {
+  background-color: #2E8B57; /* Darker green on hover */
 }

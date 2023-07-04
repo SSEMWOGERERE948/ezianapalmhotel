@@ -51,6 +51,7 @@ const Footer = () => {
       </div>
       <div className="legal">
         <p>© 2023 Eziana Palm Hotel. All rights reserved.</p>
+        <p>Designed by Ssemwogerere Trevor</p>
       </div>
     </footer>
   );

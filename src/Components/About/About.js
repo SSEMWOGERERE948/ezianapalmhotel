@@ -2,6 +2,7 @@ import React from "react"
 import "./About.css"
 import AboutCard from "./AboutCard"
 import HeadTitle from "../../Common/HeadTitle/HeadTitle"
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -40,7 +41,9 @@ const About = () => {
             </ul>
            
             <button className='secondary-btn'>
-              Explore More <i className='fas fa-long-arrow-alt-right'></i>
+            <Link to="/Destinations" className="link">
+    Explore more <i className='fas fa-long-arrow-alt-right'></i>
+  </Link>
             </button>
           </div>
           <div className='row image'>

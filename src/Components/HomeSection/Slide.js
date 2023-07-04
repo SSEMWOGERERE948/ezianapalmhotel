@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { app, db } from "./firebaseConfig";
+import { db } from "../firebase";
 import Data from "./Data";
+import { collection, addDoc } from "firebase/firestore";
 
 const Home = ({ slides }) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
@@ -21,6 +23,9 @@ const Home = ({ slides }) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
+    const nameInput = document.querySelector('input[name="yourName"]');
+    const phoneInput = document.querySelector('input[name="phoneNumber"]');
+    const emailInput = document.querySelector('input[name="email"]');
     const checkInInput = document.querySelector('input[name="checkIn"]');
     const checkOutInput = document.querySelector('input[name="checkOut"]');
     const adultInput = document.querySelector('input[name="adult"]');
@@ -28,23 +33,36 @@ const Home = ({ slides }) => {
     const roomsInput = document.querySelector('input[name="rooms"]');
 
     // Get the selected values from the input fields
+    const name = nameInput.value;
+    const phone = phoneInput.value;
+    const email = emailInput.value;
     const checkInDate = checkInInput.value;
     const checkOutDate = checkOutInput.value;
     const adultCount = adultInput.value;
     const childrenCount = childrenInput.value;
     const roomsCount = roomsInput.value;
 
-    // Create a new document in Firestore
-    db.collection("bookings").add({
+    const newValue = {
+      name,
+      phone,
+      email,
       checkInDate,
       checkOutDate,
       adultCount,
       childrenCount,
       roomsCount,
-    })
+      bookingGranted: false, // Set the initial value of bookingGranted to false
+    };
+
+    // Create a new document in Firestore
+    addDoc(collection(db, "bookings"), newValue)
       .then(() => {
-        alert("Booking submitted successfully!");
+        console.log("Form data added to Firestore");
+        setIsSubmitted(true);
         // Reset the form
+        nameInput.value = "";
+        phoneInput.value = "";
+        emailInput.value = "";
         checkInInput.value = "";
         checkOutInput.value = "";
         adultInput.value = "";
@@ -56,6 +74,14 @@ const Home = ({ slides }) => {
         alert("An error occurred while submitting the booking. Please try again later.");
       });
   };
+
+  const handleDismiss = () => {
+    setIsSubmitted(false);
+  };
+
+  if (!Array.isArray(slides) || slides.length <= 0) {
+    return null;
+  }
 
   return (
     <>
@@ -71,35 +97,23 @@ const Home = ({ slides }) => {
 
         {Data.map((slide, index) => {
           return (
-            <div
-              className={index === current ? "slide active" : "slide"}
-              key={index}
-            >
-              {index === current && <img src={slide.image} alt="Home Image" />}
+            <div className={index === current ? "slide active" : "slide"} key={index}>
+              {index === current && <img src={slide.image} alt="Home" />}
             </div>
           );
         })}
       </section>
 
-      <section className="slide-form">
-        <div className="container">
-          <h2>Enjoy Your Holiday @Eziana palm Hotel</h2>
-          <span style={{ textAlign: "center" }}>Book with us</span>
+      <form onSubmit={handleFormSubmit}>
+        {/* Form fields and submit button */}
+      </form>
 
-          <form onSubmit={handleFormSubmit}>
-            <div className="flex_space">
-              <input type="date" placeholder="Check In" name="checkIn" required />
-              <input type="date" placeholder="Check Out" name="checkOut" required />
-            </div>
-            <div className="flex_space">
-              <input type="number" placeholder="Adult(s)(18+)" name="adult" required />
-              <input type="number" placeholder="Children(0- 17)" name="children" required />
-            </div>
-            <input type="number" placeholder="Rooms" name="rooms" required />
-            <input type="submit" value="Submit" className="submit" />
-          </form>
+      {isSubmitted && (
+        <div className="submission-message">
+          <p>Thank you for your submission!</p>
+          <button onClick={handleDismiss}>Dismiss</button>
         </div>
-      </section>
+      )}
     </>
   );
 };
